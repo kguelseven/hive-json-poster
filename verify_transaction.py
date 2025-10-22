@@ -2,6 +2,7 @@
 """Quick script to verify transaction and check account history."""
 
 import os
+import sys
 from dotenv import load_dotenv
 from beem import Hive
 from beem.account import Account
@@ -10,7 +11,14 @@ from beem.blockchain import Blockchain
 load_dotenv()
 
 account_name = os.getenv("HIVE_ACCOUNT")
-tx_id = "497fda7b8dd90882915441404a2c6bdef96f8a72"  # Last transaction ID
+
+# Get transaction ID from command line argument
+if len(sys.argv) < 2:
+    print("Usage: python verify_transaction.py <transaction_id>")
+    print("\nExample: python verify_transaction.py 497fda7b8dd90882915441404a2c6bdef96f8a72")
+    sys.exit(1)
+
+tx_id = sys.argv[1]
 
 print(f"Checking account: {account_name}")
 print(f"Looking for transaction: {tx_id}\n")
